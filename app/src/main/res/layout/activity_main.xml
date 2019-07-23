@@ -15,7 +15,7 @@
         android:layout_marginEnd="111dp"
         android:layout_marginBottom="35dp"
         android:checkedButton="@+id/twoPlayers"
-        app:layout_constraintBottom_toTopOf="@+id/startGame"
+        app:layout_constraintBottom_toTopOf="@+id/goToNames"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -49,7 +49,7 @@
     </RadioGroup>
 
     <Button
-        android:id="@+id/startGame"
+        android:id="@+id/goToNames"
         android:layout_width="163dp"
         android:layout_height="61dp"
         android:layout_marginStart="110dp"

@@ -5,16 +5,14 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.widget.Button
 import android.widget.RadioGroup
-import android.widget.TextView
 import hr.trends.ilaktasic.googleTrendsGame.name.NameEnterActivity
 import kotlinx.android.synthetic.main.activity_main.*
-import okhttp3.*
 
 const val PLAYER_NUMBER_KEY = "playerNumber"
 
 class MainActivity : AppCompatActivity() {
 
-    private val joinGameButton: Button by lazy { findViewById<Button>(R.id.startGame) }
+    private val joinGameButton: Button by lazy { findViewById<Button>(R.id.goToNames) }
     private val playerNumberRadioGroup: RadioGroup by lazy { findViewById<RadioGroup>(R.id.playerNumber) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -24,7 +22,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun start() {
-        val choosenPlayerNumber = when (playerNumber.checkedRadioButtonId) {
+        val chosenPlayerNumber = when (playerNumber.checkedRadioButtonId) {
             R.id.twoPlayers -> 2
             R.id.threePlayers -> 3
             R.id.fourPlayers -> 4
@@ -33,7 +31,7 @@ class MainActivity : AppCompatActivity() {
             }
         }
         val intent = Intent(this, NameEnterActivity::class.java)
-        intent.putExtra(PLAYER_NUMBER_KEY, choosenPlayerNumber)
+        intent.putExtra(PLAYER_NUMBER_KEY, chosenPlayerNumber)
         startActivity(intent)
     }
 
