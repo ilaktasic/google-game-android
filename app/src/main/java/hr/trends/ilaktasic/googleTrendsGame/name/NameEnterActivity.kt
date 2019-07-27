@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.Gravity
+import android.view.inputmethod.EditorInfo
 import android.widget.Button
 import android.widget.EditText
 import android.widget.LinearLayout
@@ -35,6 +36,13 @@ class NameEnterActivity : AppCompatActivity() {
             editText.hint = "Player $num"
             editText.id = num
             editText.gravity = Gravity.CENTER
+            editText.setSingleLine(true)
+            if(num != playerNumber) {
+                editText.imeOptions = EditorInfo.IME_ACTION_NEXT
+                editText.nextFocusForwardId = num+1
+            } else {
+                editText.imeOptions = EditorInfo.IME_ACTION_DONE
+            }
             editText.addTextChangedListener(object : TextWatcher {
                 override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 }
@@ -63,7 +71,7 @@ class NameEnterActivity : AppCompatActivity() {
         if (playerNames.size == playerNumber) {
             return !playerNames.entries.any { entry -> entry.value == "" }
         }
-        return true
+        return false
     }
 
 }

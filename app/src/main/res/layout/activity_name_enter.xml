@@ -8,36 +8,32 @@
 
     <LinearLayout
         android:id="@+id/nameLayout"
-        android:layout_width="361dp"
-        android:layout_height="362dp"
+        android:layout_width="365dp"
+        android:layout_height="491dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
         android:gravity="center_vertical"
         android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0">
+        app:layout_constraintTop_toTopOf="parent">
 
     </LinearLayout>
 
     <Button
         android:id="@+id/startGame"
-        android:layout_width="185dp"
-        android:layout_height="wrap_content"
+        android:layout_width="180dp"
+        android:layout_height="61dp"
         android:layout_marginStart="100dp"
-        android:layout_marginTop="25dp"
+        android:layout_marginTop="185dp"
         android:layout_marginEnd="99dp"
-        android:layout_marginBottom="8dp"
-        android:text="Button"
+        android:layout_marginBottom="124dp"
+        android:text="Start game"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.481"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/nameLayout"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.752" />
 </android.support.constraint.ConstraintLayout>
