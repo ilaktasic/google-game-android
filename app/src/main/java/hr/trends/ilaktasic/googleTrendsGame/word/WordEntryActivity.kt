@@ -44,7 +44,7 @@ class WordEntryActivity : AppCompatActivity() {
             }
         } else {
             if(chosenWord != "") {
-                playerWords.add(Pair(players[currentPlayer]!!, chosenWord))
+                playerWords.add(Pair(players[currentPlayer]!!, "$chosenWord $randomWord"))
                 currentPlayer++
                 setCurrentPlayer(currentPlayer)
             }
