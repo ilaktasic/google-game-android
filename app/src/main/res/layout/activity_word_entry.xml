@@ -47,23 +47,38 @@
         android:textColor="#2196F3"
         android:textSize="36sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/editText"
+        app:layout_constraintBottom_toTopOf="@+id/playerWord"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/header" />
 
     <EditText
-        android:id="@+id/editText"
+        android:id="@+id/playerWord"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="98dp"
         android:layout_marginTop="59dp"
         android:layout_marginEnd="100dp"
         android:ems="10"
+        android:hint="enter word here"
         android:inputType="textPersonName"
-        android:text="Name"
+        android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/randomWord" />
+
+    <Button
+        android:id="@+id/submit"
+        android:layout_width="135dp"
+        android:layout_height="57dp"
+        android:layout_marginStart="161dp"
+        android:layout_marginTop="119dp"
+        android:layout_marginEnd="162dp"
+        android:layout_marginBottom="113dp"
+        android:text="Button"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/playerWord" />
 
 </android.support.constraint.ConstraintLayout>

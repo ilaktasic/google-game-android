@@ -25,24 +25,14 @@ class NameEnterActivity : AppCompatActivity() {
         val playerNumber = intent.getIntExtra(PLAYER_NUMBER_KEY, 2)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_name_enter)
-        createTextViews(playerNumber)
+        createExitTexts(playerNumber)
         startGameButton.setOnClickListener { startGame() }
         startGameButton.isEnabled = false
     }
 
-    private fun createTextViews(playerNumber: Int) {
+    private fun createExitTexts(playerNumber: Int) {
         (1..playerNumber).forEach { num ->
-            val editText = EditText(this)
-            editText.hint = "Player $num"
-            editText.id = num
-            editText.gravity = Gravity.CENTER
-            editText.setSingleLine(true)
-            if(num != playerNumber) {
-                editText.imeOptions = EditorInfo.IME_ACTION_NEXT
-                editText.nextFocusForwardId = num+1
-            } else {
-                editText.imeOptions = EditorInfo.IME_ACTION_DONE
-            }
+            val editText = createEditText(num, playerNumber)
             editText.addTextChangedListener(object : TextWatcher {
                 override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 }
@@ -59,6 +49,23 @@ class NameEnterActivity : AppCompatActivity() {
             })
             layout.addView(editText)
         }
+    }
+
+    private fun createEditText(num: Int, playerNumber: Int): EditText {
+        val editText = EditText(this)
+        editText.hint = "Player $num"
+        editText.id = num
+        editText.gravity = Gravity.CENTER
+        editText.setSingleLine(true)
+        editText.textSize = 18F
+        editText.offsetTopAndBottom(35)
+        if (num != playerNumber) {
+            editText.imeOptions = EditorInfo.IME_ACTION_NEXT
+            editText.nextFocusForwardId = num + 1
+        } else {
+            editText.imeOptions = EditorInfo.IME_ACTION_DONE
+        }
+        return editText
     }
 
     private fun startGame() {

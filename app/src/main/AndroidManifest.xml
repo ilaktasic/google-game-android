@@ -12,6 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
+        <activity android:name=".result.ResultActivity"></activity>
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -20,7 +21,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".name.NameEnterActivity" />
-        <activity android:name=".word.WordEntryActivity"></activity>
+        <activity android:name=".word.WordEntryActivity" />
     </application>
 
 </manifest>
