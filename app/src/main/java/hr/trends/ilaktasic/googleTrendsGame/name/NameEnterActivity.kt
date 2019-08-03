@@ -12,11 +12,14 @@ import android.widget.EditText
 import android.widget.LinearLayout
 import hr.trends.ilaktasic.googleTrendsGame.PLAYER_NUMBER_KEY
 import hr.trends.ilaktasic.googleTrendsGame.R
+import hr.trends.ilaktasic.googleTrendsGame.model.Player
+import hr.trends.ilaktasic.googleTrendsGame.model.TransferModel
 import hr.trends.ilaktasic.googleTrendsGame.word.WordEntryActivity
 
-const val NAMES_KEY = "names"
+const val TRANSFER_MODEL_NAME = "TRANSFER_MODEL"
 
 class NameEnterActivity : AppCompatActivity() {
+    private val transferModel = TransferModel(3, 0)
     private val playerNames = mutableMapOf<Int, String>()
     private val startGameButton: Button by lazy { findViewById<Button>(R.id.startGame) }
     private val layout: LinearLayout by lazy { findViewById<LinearLayout>(R.id.nameLayout) }
@@ -69,8 +72,11 @@ class NameEnterActivity : AppCompatActivity() {
     }
 
     private fun startGame() {
+        for((_, v) in playerNames) {
+            transferModel.players.add(Player(v, 0, 0))
+        }
         val intent = Intent(this, WordEntryActivity::class.java)
-        intent.putExtra(NAMES_KEY, HashMap(playerNames))
+        intent.putExtra(TRANSFER_MODEL_NAME, transferModel)
         startActivity(intent)
     }
 

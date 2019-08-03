@@ -12,7 +12,7 @@
         android:layout_height="116dp"
         android:layout_marginStart="38dp"
         android:layout_marginEnd="38dp"
-        android:text="Write one word to complete term:"
+        android:text="Write one word to complete a term:"
         android:textAlignment="center"
         android:textSize="30sp"
         app:layout_constraintBottom_toTopOf="@+id/randomWord"
@@ -38,8 +38,8 @@
 
     <TextView
         android:id="@+id/randomWord"
-        android:layout_width="343dp"
-        android:layout_height="116dp"
+        android:layout_width="341dp"
+        android:layout_height="86dp"
         android:layout_marginStart="38dp"
         android:layout_marginEnd="38dp"
         android:layout_marginBottom="59dp"
@@ -49,6 +49,7 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/playerWord"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/header" />
 
@@ -57,13 +58,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="98dp"
-        android:layout_marginTop="59dp"
         android:layout_marginEnd="100dp"
         android:ems="10"
         android:hint="enter word here"
         android:inputType="textPersonName"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/randomWord" />
 
@@ -78,7 +79,20 @@
         android:text="Button"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.489"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/playerWord" />
+        app:layout_constraintTop_toBottomOf="@+id/playerWord"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <TextView
+        android:id="@+id/roundTextView"
+        android:layout_width="262dp"
+        android:layout_height="52dp"
+        android:layout_marginEnd="72dp"
+        android:layout_marginBottom="28dp"
+        android:textAlignment="center"
+        android:textSize="36sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
 </android.support.constraint.ConstraintLayout>
