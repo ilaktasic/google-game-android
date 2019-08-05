@@ -19,7 +19,7 @@ import hr.trends.ilaktasic.googleTrendsGame.word.WordEntryActivity
 const val TRANSFER_MODEL_NAME = "TRANSFER_MODEL"
 
 class NameEnterActivity : AppCompatActivity() {
-    private val transferModel = TransferModel(3, 0)
+    private val transferModel = TransferModel(3)
     private val playerNames = mutableMapOf<Int, String>()
     private val startGameButton: Button by lazy { findViewById<Button>(R.id.startGame) }
     private val layout: LinearLayout by lazy { findViewById<LinearLayout>(R.id.nameLayout) }

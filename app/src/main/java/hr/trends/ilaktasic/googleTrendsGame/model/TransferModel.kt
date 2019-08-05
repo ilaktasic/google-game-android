@@ -5,7 +5,7 @@ import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
-data class TransferModel (val rounds: Int? = null, var currentRound: Int = 0, val players: MutableList<Player> = mutableListOf()) : Parcelable {
+data class TransferModel (val rounds: Int = 3, var currentRound: Int = 1, val players: MutableList<Player> = mutableListOf()) : Parcelable {
     /*constructor(parcel: Parcel) : this(
             parcel.readInt(),
             parcel.readInt(),
