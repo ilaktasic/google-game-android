@@ -4,7 +4,9 @@ import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.view.View
 import android.widget.Button
+import android.widget.ProgressBar
 import android.widget.TextView
 import com.android.volley.Request
 import com.android.volley.Response
@@ -17,9 +19,6 @@ import com.github.mikephil.charting.data.BarData
 import com.github.mikephil.charting.data.BarDataSet
 import com.github.mikephil.charting.data.BarEntry
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
-import com.loopj.android.http.AsyncHttpClient
-import com.loopj.android.http.JsonHttpResponseHandler
-import cz.msebera.android.httpclient.Header
 import hr.trends.ilaktasic.googleTrendsGame.MainActivity
 import hr.trends.ilaktasic.googleTrendsGame.R
 import hr.trends.ilaktasic.googleTrendsGame.model.Player
@@ -30,6 +29,13 @@ import hr.trends.ilaktasic.googleTrendsGame.name.TRANSFER_MODEL_NAME
 import hr.trends.ilaktasic.googleTrendsGame.word.WordEntryActivity
 import org.json.JSONObject
 import java.util.HashSet
+import kotlin.Boolean
+import kotlin.Comparator
+import kotlin.Int
+import kotlin.Pair
+import kotlin.arrayOf
+import kotlin.getValue
+import kotlin.lazy
 
 class ResultActivity : AppCompatActivity() {
 
@@ -37,6 +43,7 @@ class ResultActivity : AppCompatActivity() {
     private val roundTextView: TextView by lazy { findViewById<TextView>(R.id.roundTextView) }
     private val finishRoundButton: Button by lazy { findViewById<Button>(R.id.button) }
     private val barChart: BarChart by lazy { findViewById<BarChart>(R.id.chart) }
+    private val loader: ProgressBar by lazy { findViewById<ProgressBar>(R.id.loader) }
 
     private var transferModel = TransferModel()
     private var showFinalResults = false
@@ -62,7 +69,7 @@ class ResultActivity : AppCompatActivity() {
     }
 
     private fun callTrendsApi(players: List<Player>) {
-
+        isLoading()
         //extract points to list
         val trendsDto = TrendsRequestDto(mutableListOf())
         players.forEach { trendsDto.keywords.add(it.phraseToGoogle) }
@@ -85,6 +92,7 @@ class ResultActivity : AppCompatActivity() {
                     if (transferModel.currentRound == transferModel.rounds) finishRoundButton.text = "SHOW FINAL RESULTS"
 
                     setGraph(transferModel)
+                    loaded()
                 },
                 Response.ErrorListener { error ->
                     println(error.message)
@@ -175,5 +183,21 @@ class ResultActivity : AppCompatActivity() {
 
     private fun verifyAllEqualUsingHashSet(list: MutableList<Int>): Boolean {
         return HashSet<Int>(list).size <= 1
+    }
+
+    private fun isLoading() {
+        resultTextView.visibility = View.GONE
+        roundTextView.visibility = View.GONE
+        finishRoundButton.visibility = View.GONE
+        barChart.visibility = View.GONE
+        loader.visibility = View.VISIBLE
+    }
+
+    private fun loaded() {
+        resultTextView.visibility = View.VISIBLE
+        roundTextView.visibility = View.VISIBLE
+        finishRoundButton.visibility = View.VISIBLE
+        barChart.visibility = View.VISIBLE
+        loader.visibility = View.GONE
     }
 }

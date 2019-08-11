@@ -3,6 +3,7 @@ package hr.trends.ilaktasic.googleTrendsGame
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.view.Window
 import android.widget.Button
 import android.widget.RadioGroup
 import hr.trends.ilaktasic.googleTrendsGame.name.NameEnterActivity

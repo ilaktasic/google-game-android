@@ -76,7 +76,7 @@
         android:layout_marginTop="119dp"
         android:layout_marginEnd="162dp"
         android:layout_marginBottom="113dp"
-        android:text="Button"
+        android:text="Continue"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.489"
