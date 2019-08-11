@@ -19,18 +19,20 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/playerName"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="1.0" />
 
     <TextView
         android:id="@+id/playerName"
         android:layout_width="352dp"
         android:layout_height="75dp"
         android:layout_marginStart="38dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="112dp"
         android:layout_marginEnd="38dp"
+        android:layout_marginBottom="1dp"
         android:textAlignment="center"
         android:textColor="#000000"
         android:textSize="30sp"
+        app:layout_constraintBottom_toTopOf="@+id/header"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.529"
         app:layout_constraintStart_toStartOf="parent"
@@ -42,14 +44,14 @@
         android:layout_height="86dp"
         android:layout_marginStart="38dp"
         android:layout_marginEnd="38dp"
-        android:layout_marginBottom="59dp"
+        android:layout_marginBottom="16dp"
         android:textAlignment="center"
         android:textColor="#2196F3"
         android:textSize="36sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/playerWord"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/header" />
 
@@ -58,6 +60,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="98dp"
+        android:layout_marginTop="44dp"
         android:layout_marginEnd="100dp"
         android:ems="10"
         android:hint="enter word here"
@@ -70,8 +73,8 @@
 
     <Button
         android:id="@+id/submit"
-        android:layout_width="135dp"
-        android:layout_height="57dp"
+        android:layout_width="160dp"
+        android:layout_height="60dp"
         android:layout_marginStart="161dp"
         android:layout_marginTop="119dp"
         android:layout_marginEnd="162dp"
@@ -82,17 +85,21 @@
         app:layout_constraintHorizontal_bias="0.489"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/playerWord"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintVertical_bias="0.71" />
 
     <TextView
         android:id="@+id/roundTextView"
         android:layout_width="262dp"
         android:layout_height="52dp"
+        android:layout_marginStart="77dp"
+        android:layout_marginTop="47dp"
         android:layout_marginEnd="72dp"
-        android:layout_marginBottom="28dp"
+        android:layout_marginBottom="632dp"
         android:textAlignment="center"
         android:textSize="36sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </android.support.constraint.ConstraintLayout>

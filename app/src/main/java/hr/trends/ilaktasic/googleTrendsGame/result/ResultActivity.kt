@@ -75,7 +75,7 @@ class ResultActivity : AppCompatActivity() {
         players.forEach { trendsDto.keywords.add(it.phraseToGoogle) }
 
         val queue = Volley.newRequestQueue(this)
-        val url = "http://10.0.2.2:3000/google/trends"
+        val url = "https://trendsapi-tvz.appspot.com/google/trends"
 
         val stringRequest = JsonObjectRequest(Request.Method.POST, url, JSONObject(mutableMapOf(Pair("keywords", trendsDto.keywords))),
                 Response.Listener { response ->
