@@ -1,10 +1,14 @@
 package hr.trends.ilaktasic.googleTrendsGame.result
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.graphics.Color
+import android.opengl.Visibility
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.View
+import android.view.View.GONE
+import android.view.View.VISIBLE
 import android.widget.Button
 import android.widget.ProgressBar
 import android.widget.TextView
@@ -13,12 +17,6 @@ import com.android.volley.Response
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
 import com.fasterxml.jackson.databind.ObjectMapper
-import com.github.mikephil.charting.charts.BarChart
-import com.github.mikephil.charting.components.Legend
-import com.github.mikephil.charting.data.BarData
-import com.github.mikephil.charting.data.BarDataSet
-import com.github.mikephil.charting.data.BarEntry
-import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
 import hr.trends.ilaktasic.googleTrendsGame.MainActivity
 import hr.trends.ilaktasic.googleTrendsGame.R
 import hr.trends.ilaktasic.googleTrendsGame.model.Player
@@ -27,22 +25,20 @@ import hr.trends.ilaktasic.googleTrendsGame.model.TrendsRequestDto
 import hr.trends.ilaktasic.googleTrendsGame.model.TrendsResponseDto
 import hr.trends.ilaktasic.googleTrendsGame.name.TRANSFER_MODEL_NAME
 import hr.trends.ilaktasic.googleTrendsGame.word.WordEntryActivity
+import lecho.lib.hellocharts.model.*
+import lecho.lib.hellocharts.view.LineChartView
+import lecho.lib.hellocharts.view.PieChartView
 import org.json.JSONObject
 import java.util.HashSet
-import kotlin.Boolean
 import kotlin.Comparator
-import kotlin.Int
-import kotlin.Pair
-import kotlin.arrayOf
-import kotlin.getValue
-import kotlin.lazy
 
 class ResultActivity : AppCompatActivity() {
 
-    private val resultTextView: TextView by lazy { findViewById<TextView>(R.id.textView) }
     private val roundTextView: TextView by lazy { findViewById<TextView>(R.id.roundTextView) }
+    private val winnerTextView: TextView by lazy { findViewById<TextView>(R.id.winnerBanner) }
     private val finishRoundButton: Button by lazy { findViewById<Button>(R.id.button) }
-    private val barChart: BarChart by lazy { findViewById<BarChart>(R.id.chart) }
+    private val chart: LineChartView by lazy { findViewById<LineChartView>(R.id.chart) }
+    private val pieChart: PieChartView by lazy { findViewById<PieChartView>(R.id.pieChart) }
     private val loader: ProgressBar by lazy { findViewById<ProgressBar>(R.id.loader) }
 
     private var transferModel = TransferModel()
@@ -62,12 +58,14 @@ class ResultActivity : AppCompatActivity() {
     }
 
     private fun addPoints(transferModel: TransferModel): TransferModel {
-        transferModel.players.forEach {
-            it.points = it.points + it.roundPoints
+        transferModel.players.forEach { player ->
+            val lastPoint = player.latestResult()
+            player.points = player.points + lastPoint
         }
         return transferModel
     }
 
+    @SuppressLint("NewApi")
     private fun callTrendsApi(players: List<Player>) {
         isLoading()
         //extract points to list
@@ -83,7 +81,12 @@ class ResultActivity : AppCompatActivity() {
                     val trendsResponseDto = ObjectMapper().readValue(response.toString(), TrendsResponseDto::class.java)
                     //set points to transfer model
                     transferModel.players.forEachIndexed { index, player ->
-                        player.roundPoints = trendsResponseDto.default?.averages?.get(index) ?: 0
+                        val tempResultMap = mutableMapOf<Long, Int>()
+                        trendsResponseDto.default?.timelineData?.sortedBy { it.time?.toLongOrNull() }
+                                ?.takeLast(10)?.forEach {
+                            tempResultMap[it.time?.toLongOrNull() ?: 0] = it.value?.get(index) ?: 0
+                        }
+                        player.roundPoints = tempResultMap
                     }
 
                     transferModel = addPoints(transferModel)
@@ -102,34 +105,16 @@ class ResultActivity : AppCompatActivity() {
     }
 
     private fun setGraph(transferModel: TransferModel) {
-        val dataSetList = mutableListOf<BarDataSet>()
-
-        //create bar data
-        transferModel.players.forEachIndexed { i, player ->
-            val barDataSet = BarDataSet(mutableListOf(BarEntry(i.toFloat(), if (!showFinalResults) player.roundPoints.toFloat() else player.points.toFloat())), if (!showFinalResults) player.phraseToGoogle else player.name)
-            barDataSet.color = getColorFromList(i)
-            barDataSet.valueTextSize = 20f
-            dataSetList.add(barDataSet)
+        val lines = transferModel.players.mapIndexed { i, player ->
+            val values = player.roundPoints.entries.map {
+                PointValue(it.key.toFloat(), it.value.toFloat())
+            }
+            Line(values).setColor(getColorFromList(i)).setCubic(true).setHasPoints(false)
         }
-        //add data to graph
-        barChart.data = BarData(*dataSetList.toTypedArray())
-        //dumb design crap
-        barChart.xAxis.valueFormatter = IndexAxisValueFormatter(arrayOf("", ""))
-        barChart.axisLeft.axisMinimum = 0f
-        barChart.xAxis.isEnabled = false
-        barChart.axisLeft.isEnabled = false
-        barChart.axisRight.isEnabled = false
-        barChart.legend.formSize = 12f
-        barChart.legend.horizontalAlignment = Legend.LegendHorizontalAlignment.LEFT
-        barChart.legend.verticalAlignment = Legend.LegendVerticalAlignment.BOTTOM
-        barChart.legend.textSize = 20f
-        barChart.legend.formToTextSpace = 5f
-        barChart.legend.xEntrySpace = 21f
-        barChart.legend.maxSizePercent = 0.9f
-        barChart.legend.isWordWrapEnabled = true
-        barChart.description.isEnabled = false
-        //start the graph?
-        barChart.invalidate()
+        val chartData = LineChartData()
+        chartData.lines = lines
+        chart.setBackgroundColor(Color.LTGRAY)
+        chart.lineChartData = chartData
     }
 
     private fun nextRound() {
@@ -164,19 +149,30 @@ class ResultActivity : AppCompatActivity() {
         transferModel.players.map { it.points }.toCollection(points)
 
         if (showFinalResults) {
+            chart.visibility = GONE
+            winnerTextView.visibility = VISIBLE
             roundTextView.text = "FINAL RESULTS"
-            resultTextView.text = "${transferModel.players.maxWith(Comparator { a, b -> a.points.compareTo(b.points) })?.name}'s a WINNER! Congratulations"
+            winnerTextView.text = "${transferModel.players.maxWith(Comparator { a, b -> a.points.compareTo(b.points) })?.name}'s a WINNER! Congratulations"
             finishRoundButton.text = "PLAY AGAIN"
             if (verifyAllEqualUsingHashSet(points)) {
-                resultTextView.text = "Looks like nobody won."
+                winnerTextView.text = "Looks like nobody won."
             }
         } else {
             finishRoundButton.text = "NEXT ROUND"
             roundTextView.text = "ROUND ${transferModel.currentRound} RESULTS"
-            resultTextView.text = "The term \"${transferModel.players.maxWith(Comparator { a, b -> a.roundPoints.compareTo(b.roundPoints) })?.phraseToGoogle}\" trends more!"
-            if (verifyAllEqualUsingHashSet(points)) {
-                resultTextView.text = "Looks like nothing is trending."
+            val data = transferModel.players.mapIndexed { i, player ->
+                val value = SliceValue()
+                value.value = player.points.toFloat()
+                value.color = getColorFromList(i)
+                value.setLabel("${player.name} ${player.points}")
             }
+            val chartData = PieChartData(data)
+            chartData.setHasLabels(true)
+            chartData.setHasCenterCircle(true)
+            chartData.centerText2 = "Total score"
+            chartData.centerText2FontSize = 8
+            pieChart.pieChartData = chartData
+
         }
 
     }
@@ -186,18 +182,18 @@ class ResultActivity : AppCompatActivity() {
     }
 
     private fun isLoading() {
-        resultTextView.visibility = View.GONE
+        //resultTextView.visibility = View.GONE
         roundTextView.visibility = View.GONE
         finishRoundButton.visibility = View.GONE
-        barChart.visibility = View.GONE
+        chart.visibility = View.GONE
         loader.visibility = View.VISIBLE
     }
 
     private fun loaded() {
-        resultTextView.visibility = View.VISIBLE
+        //resultTextView.visibility = View.VISIBLE
         roundTextView.visibility = View.VISIBLE
         finishRoundButton.visibility = View.VISIBLE
-        barChart.visibility = View.VISIBLE
+        chart.visibility = View.VISIBLE
         loader.visibility = View.GONE
     }
 }
