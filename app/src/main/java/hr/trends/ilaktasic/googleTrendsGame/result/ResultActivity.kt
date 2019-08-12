@@ -3,15 +3,11 @@ package hr.trends.ilaktasic.googleTrendsGame.result
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.graphics.Color
-import android.opengl.Visibility
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
-import android.widget.Button
-import android.widget.ProgressBar
-import android.widget.TextView
+import android.widget.*
 import com.android.volley.Request
 import com.android.volley.Response
 import com.android.volley.toolbox.JsonObjectRequest
@@ -32,6 +28,7 @@ import org.json.JSONObject
 import java.util.HashSet
 import kotlin.Comparator
 
+
 class ResultActivity : AppCompatActivity() {
 
     private val roundTextView: TextView by lazy { findViewById<TextView>(R.id.roundTextView) }
@@ -40,6 +37,7 @@ class ResultActivity : AppCompatActivity() {
     private val chart: LineChartView by lazy { findViewById<LineChartView>(R.id.chart) }
     private val pieChart: PieChartView by lazy { findViewById<PieChartView>(R.id.pieChart) }
     private val loader: ProgressBar by lazy { findViewById<ProgressBar>(R.id.loader) }
+    private val tableLayout: TableLayout by lazy { findViewById<TableLayout>(R.id.statsTable) }
 
     private var transferModel = TransferModel()
     private var showFinalResults = false
@@ -94,6 +92,8 @@ class ResultActivity : AppCompatActivity() {
 
                     if (transferModel.currentRound == transferModel.rounds) finishRoundButton.text = "SHOW FINAL RESULTS"
 
+                    setTable(transferModel)
+                    setPieChart(transferModel)
                     setGraph(transferModel)
                     loaded()
                 },
@@ -123,6 +123,8 @@ class ResultActivity : AppCompatActivity() {
             showFinalResults = true
             setTextViews(transferModel)
             setGraph(transferModel)
+            setPieChart(transferModel)
+            setTable(transferModel)
         } else if (showFinalResults) {
             //start again
             val intent = Intent(this, MainActivity::class.java)
@@ -136,6 +138,39 @@ class ResultActivity : AppCompatActivity() {
         }
     }
 
+    private fun setTable(transferModel: TransferModel) {
+        val header =  TableRow(this)
+        listOf("Player", "Term", "Points").forEach { addToRow(it, header) }
+        tableLayout.addView(header)
+        transferModel.players.forEach{
+            val row = TableRow(this)
+
+            listOf(it.name, it.phraseToGoogle, it.latestResult().toString()).forEach {label ->
+                addToRow(label, row)
+            }
+
+            tableLayout.addView(row)
+        }
+    }
+
+    private fun addToRow(label: String?, row: TableRow) {
+        val textView = TextView(this)
+        positionColumn(textView)
+        textView.text = label
+        val layout = LinearLayout(this)
+        val params = TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.MATCH_PARENT, 1f)
+        layout.layoutParams = params
+        layout.addView(textView)
+        row.addView(layout)
+    }
+
+    private fun positionColumn(textView: TextView) {
+       //  textView.width = LinearLayout.LayoutParams.MATCH_PARENT
+        textView.setPadding(20,5,20,5)
+        textView.setTextColor(Color.BLACK)
+        textView.textSize = 18F
+    }
+
     // up to 4 player colors
     private fun getColorFromList(iterator: Int): Int {
         val colors = arrayListOf(Color.BLUE, Color.RED, Color.YELLOW, Color.GREEN)
@@ -144,12 +179,12 @@ class ResultActivity : AppCompatActivity() {
 
     //dumb I know
     private fun setTextViews(transferModel: TransferModel) {
-
         val points = mutableListOf<Int>()
         transferModel.players.map { it.points }.toCollection(points)
 
         if (showFinalResults) {
             chart.visibility = GONE
+            tableLayout.visibility = GONE
             winnerTextView.visibility = VISIBLE
             roundTextView.text = "FINAL RESULTS"
             winnerTextView.text = "${transferModel.players.maxWith(Comparator { a, b -> a.points.compareTo(b.points) })?.name}'s a WINNER! Congratulations"
@@ -160,21 +195,24 @@ class ResultActivity : AppCompatActivity() {
         } else {
             finishRoundButton.text = "NEXT ROUND"
             roundTextView.text = "ROUND ${transferModel.currentRound} RESULTS"
-            val data = transferModel.players.mapIndexed { i, player ->
-                val value = SliceValue()
-                value.value = player.points.toFloat()
-                value.color = getColorFromList(i)
-                value.setLabel("${player.name} ${player.points}")
-            }
-            val chartData = PieChartData(data)
-            chartData.setHasLabels(true)
-            chartData.setHasCenterCircle(true)
-            chartData.centerText2 = "Total score"
-            chartData.centerText2FontSize = 8
-            pieChart.pieChartData = chartData
 
         }
 
+    }
+
+    private fun setPieChart(transferModel: TransferModel) {
+        val data = transferModel.players.mapIndexed { i, player ->
+            val value = SliceValue()
+            value.value = player.points.toFloat()
+            value.color = getColorFromList(i)
+            value.setLabel("${player.name} ${player.points}")
+        }
+        val chartData = PieChartData(data)
+        chartData.setHasLabels(true)
+        chartData.setHasCenterCircle(true)
+        chartData.centerText1 = "Total score"
+        chartData.centerText1FontSize = 15
+        pieChart.pieChartData = chartData
     }
 
     private fun verifyAllEqualUsingHashSet(list: MutableList<Int>): Boolean {
@@ -182,18 +220,16 @@ class ResultActivity : AppCompatActivity() {
     }
 
     private fun isLoading() {
-        //resultTextView.visibility = View.GONE
-        roundTextView.visibility = View.GONE
-        finishRoundButton.visibility = View.GONE
-        chart.visibility = View.GONE
-        loader.visibility = View.VISIBLE
+        roundTextView.visibility = GONE
+        finishRoundButton.visibility = GONE
+        chart.visibility = GONE
+        loader.visibility = VISIBLE
     }
 
     private fun loaded() {
-        //resultTextView.visibility = View.VISIBLE
-        roundTextView.visibility = View.VISIBLE
-        finishRoundButton.visibility = View.VISIBLE
-        chart.visibility = View.VISIBLE
-        loader.visibility = View.GONE
+        roundTextView.visibility = VISIBLE
+        finishRoundButton.visibility = VISIBLE
+        chart.visibility = VISIBLE
+        loader.visibility = GONE
     }
 }
