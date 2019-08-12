@@ -9,20 +9,17 @@
 
     <Button
         android:id="@+id/button"
-        android:layout_width="142dp"
-        android:layout_height="64dp"
+        android:layout_width="281dp"
+        android:layout_height="40dp"
         android:layout_marginStart="160dp"
-        android:layout_marginTop="20dp"
         android:layout_marginEnd="160dp"
-        android:layout_marginBottom="80dp"
+        android:layout_marginBottom="5dp"
         android:text="Continue"
         android:textAlignment="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.509"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/pieChart"
-        app:layout_constraintVertical_bias="0.173" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <lecho.lib.hellocharts.view.LineChartView
         android:id="@+id/chart"
@@ -32,18 +29,19 @@
         android:layout_marginBottom="28dp"
         app:layout_constraintBottom_toTopOf="@+id/pieChart"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.6"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.069" />
 
     <lecho.lib.hellocharts.view.PieChartView
         android:id="@+id/pieChart"
-        android:layout_width="351dp"
-        android:layout_height="195dp"
-        android:layout_marginTop="184dp"
+        android:layout_width="348dp"
+        android:layout_height="220dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/button"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/chart" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/roundTextView"
@@ -74,11 +72,9 @@
 
     <TextView
         android:id="@+id/winnerBanner"
-        android:layout_width="262dp"
-        android:layout_height="69dp"
-        android:layout_marginStart="411dp"
-        android:layout_marginTop="731dp"
-        android:layout_marginEnd="411dp"
+        android:layout_width="wrap_content"
+        android:layout_height="128dp"
+        android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
         android:text="TextView"
         android:textAlignment="center"
@@ -87,11 +83,11 @@
         android:textColor="#19EC14"
         android:textSize="24sp"
         android:textStyle="bold"
-        android:visibility="gone"
+        android:visibility="visible"
         app:layout_constraintBottom_toTopOf="@+id/pieChart"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/roundTextView" />
 
     <TableLayout
         android:id="@+id/statsTable"

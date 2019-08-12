@@ -187,7 +187,7 @@ class ResultActivity : AppCompatActivity() {
             tableLayout.visibility = GONE
             winnerTextView.visibility = VISIBLE
             roundTextView.text = "FINAL RESULTS"
-            winnerTextView.text = "${transferModel.players.maxWith(Comparator { a, b -> a.points.compareTo(b.points) })?.name}'s a WINNER! Congratulations"
+            winnerTextView.text = "${transferModel.players.maxWith(Comparator { a, b -> a.points.compareTo(b.points) })?.name} is a WINNER! Congratulations"
             finishRoundButton.text = "PLAY AGAIN"
             if (verifyAllEqualUsingHashSet(points)) {
                 winnerTextView.text = "Looks like nobody won."
