@@ -7,38 +7,44 @@
     tools:context="hr.trends.ilaktasic.googleTrendsGame.result.ResultActivity">
 
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="402dp"
-        android:layout_height="149dp"
-        android:layout_marginTop="384dp"
-        android:layout_marginEnd="4dp"
-        android:lineSpacingExtra="12sp"
-        android:paddingTop="50px"
-        android:text="PIŠI NEŠTO PLS"
-        android:textAlignment="center"
-        android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <Button
         android:id="@+id/button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="544dp"
+        android:layout_width="142dp"
+        android:layout_height="64dp"
+        android:layout_marginStart="160dp"
+        android:layout_marginTop="53dp"
         android:layout_marginEnd="160dp"
+        android:layout_marginBottom="80dp"
         android:text="Continue"
         android:textAlignment="center"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.509"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/pieChart" />
+
+    <lecho.lib.hellocharts.view.LineChartView
+        android:id="@+id/chart"
+        android:layout_width="410dp"
+        android:layout_height="210dp"
+        android:layout_marginTop="96dp"
+        android:layout_marginBottom="28dp"
+        app:layout_constraintBottom_toTopOf="@+id/pieChart"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <com.github.mikephil.charting.charts.BarChart
-        android:id="@+id/chart"
-        android:layout_width="411dp"
-        android:layout_height="281dp"
-        android:layout_marginTop="68dp"
+    <lecho.lib.hellocharts.view.PieChartView
+        android:id="@+id/pieChart"
+        android:layout_width="333dp"
+        android:layout_height="189dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginBottom="60dp"
+        app:layout_constraintBottom_toTopOf="@+id/button"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/chart" />
 
     <TextView
         android:id="@+id/roundTextView"
@@ -59,10 +65,31 @@
         android:layout_height="94dp"
         android:layout_marginStart="411dp"
         android:layout_marginTop="318dp"
-        android:layout_marginEnd="259dp"
+        android:layout_marginEnd="411dp"
         android:layout_marginBottom="731dp"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/winnerBanner"
+        android:layout_width="262dp"
+        android:layout_height="69dp"
+        android:layout_marginStart="411dp"
+        android:layout_marginTop="731dp"
+        android:layout_marginEnd="411dp"
+        android:layout_marginBottom="8dp"
+        android:text="TextView"
+        android:textAlignment="center"
+        android:textAllCaps="true"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textColor="#19EC14"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@+id/pieChart"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

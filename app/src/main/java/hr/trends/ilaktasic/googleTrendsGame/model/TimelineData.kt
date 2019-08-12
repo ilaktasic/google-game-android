@@ -14,7 +14,7 @@ class TimelineData {
 
     var time: String? = null
 
-    var value: Array<String>? = null
+    var value: Array<Int>? = null
 
     var isPartial: Boolean? = null
 

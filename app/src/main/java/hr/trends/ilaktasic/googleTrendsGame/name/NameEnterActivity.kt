@@ -73,7 +73,7 @@ class NameEnterActivity : AppCompatActivity() {
 
     private fun startGame() {
         for((_, v) in playerNames) {
-            transferModel.players.add(Player(v, 0, 0))
+            transferModel.players.add(Player(v, 0, emptyMap()))
         }
         val intent = Intent(this, WordEntryActivity::class.java)
         intent.putExtra(TRANSFER_MODEL_NAME, transferModel)
