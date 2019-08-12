@@ -23,7 +23,7 @@
 
     <lecho.lib.hellocharts.view.LineChartView
         android:id="@+id/chart"
-        android:layout_width="416dp"
+        android:layout_width="wrap_content"
         android:layout_height="129dp"
         android:layout_marginTop="96dp"
         android:layout_marginBottom="28dp"
@@ -36,7 +36,7 @@
 
     <lecho.lib.hellocharts.view.PieChartView
         android:id="@+id/pieChart"
-        android:layout_width="348dp"
+        android:layout_width="wrap_content"
         android:layout_height="220dp"
         android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toTopOf="@+id/button"
@@ -83,7 +83,7 @@
         android:textColor="#19EC14"
         android:textSize="24sp"
         android:textStyle="bold"
-        android:visibility="visible"
+        android:visibility="gone"
         app:layout_constraintBottom_toTopOf="@+id/pieChart"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
