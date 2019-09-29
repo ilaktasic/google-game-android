@@ -13,46 +13,48 @@
         android:layout_height="40dp"
         android:layout_marginStart="160dp"
         android:layout_marginEnd="160dp"
-        android:layout_marginBottom="5dp"
+        android:layout_marginBottom="28dp"
         android:text="Continue"
         android:textAlignment="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.509"
         app:layout_constraintStart_toStartOf="parent" />
 
     <lecho.lib.hellocharts.view.LineChartView
         android:id="@+id/chart"
         android:layout_width="wrap_content"
         android:layout_height="129dp"
-        android:layout_marginTop="96dp"
-        android:layout_marginBottom="28dp"
-        app:layout_constraintBottom_toTopOf="@+id/pieChart"
+        android:layout_marginTop="20dp"
+        app:layout_constraintBottom_toBottomOf="@+id/winnerBanner"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.6"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.069" />
+        app:layout_constraintTop_toBottomOf="@+id/roundTextView"
+        app:layout_constraintVertical_bias="0.0" />
 
     <lecho.lib.hellocharts.view.PieChartView
         android:id="@+id/pieChart"
-        android:layout_width="wrap_content"
-        android:layout_height="220dp"
-        android:layout_marginBottom="8dp"
+        android:layout_width="317dp"
+        android:layout_height="159dp"
+        android:layout_marginBottom="16dp"
         app:layout_constraintBottom_toTopOf="@+id/button"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.485"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/roundTextView"
         android:layout_width="291dp"
         android:layout_height="66dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginStart="60dp"
+        android:layout_marginTop="28dp"
         android:layout_marginEnd="60dp"
         android:text="TextView"
         android:textAlignment="center"
         android:textSize="26sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ProgressBar
@@ -91,18 +93,18 @@
 
     <TableLayout
         android:id="@+id/statsTable"
-        android:layout_width="393dp"
-        android:layout_height="162dp"
+        android:layout_width="333dp"
+        android:layout_height="163dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toTopOf="@+id/pieChart"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.571"
+        app:layout_constraintHorizontal_bias="0.491"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/chart"
-        app:layout_constraintVertical_bias="0.0">
+        app:layout_constraintVertical_bias="1.0">
 
         <TableRow
             android:layout_width="match_parent"
